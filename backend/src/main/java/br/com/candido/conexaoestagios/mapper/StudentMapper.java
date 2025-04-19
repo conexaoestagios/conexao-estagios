@@ -1,6 +1,8 @@
-package br.com.candido.conexaoestagios.dto.student;
+package br.com.candido.conexaoestagios.mapper;
 
 
+import br.com.candido.conexaoestagios.dto.student.StudentRequestDTO;
+import br.com.candido.conexaoestagios.dto.student.StudentResponseDTO;
 import br.com.candido.conexaoestagios.entities.Student;
 
 public class StudentMapper {

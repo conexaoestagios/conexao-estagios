@@ -1,5 +1,7 @@
-package br.com.candido.conexaoestagios.dto.admin;
+package br.com.candido.conexaoestagios.mapper;
 
+import br.com.candido.conexaoestagios.dto.admin.AdminRequestDTO;
+import br.com.candido.conexaoestagios.dto.admin.AdminResponseDTO;
 import br.com.candido.conexaoestagios.entities.Admin;
 
 public class AdminMapper {
@@ -11,8 +13,6 @@ public class AdminMapper {
                 admin.getUsername(),
                 admin.getEmail(),
                 admin.getPhoneNumber(),
-                admin.getCity(),
-                admin.getState(),
                 admin.getRole(),
                 admin.getRegistrationDate()
         );

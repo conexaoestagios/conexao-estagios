@@ -1,5 +1,7 @@
-package br.com.candido.conexaoestagios.dto.company;
+package br.com.candido.conexaoestagios.mapper;
 
+import br.com.candido.conexaoestagios.dto.company.CompanyRequestDTO;
+import br.com.candido.conexaoestagios.dto.company.CompanyResponseDTO;
 import br.com.candido.conexaoestagios.entities.Company;
 
 public class CompanyMapper {

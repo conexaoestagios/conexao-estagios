@@ -2,61 +2,93 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conexão Estágios | Conectando Talentos a Oportunidades</title>
-    <meta name="description" content="Plataforma de estágios para estudantes e empresas.">
-    
-    <!-- CSS (opcional) -->
-    <link rel="stylesheet" href="css/style.css">
-    
-    <!-- Favicon (adicione depois) -->
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    
-    <!-- Fontes do Google (exemplo) -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conexão Estágios</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #ffffff;
+    }
+
+    .hero {
+      background: url('background.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .button {
+      margin-top: 2rem;
+      padding: 0.8rem 1.5rem;
+      background-color: #00bfa6;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #008c7a;
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Cabeçalho -->
-    <header>
-        <div class="container">
-            <h1>Conexão Estágios</h1>
-            <nav>
-                <ul>
-                    <li><a href="#sobre">Sobre</a></li>
-                    <li><a href="#vagas">Vagas</a></li>
-                    <li><a href="#contato">Contato</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- Conteúdo Principal -->
-    <main>
-        <section id="hero">
-            <div class="container">
-                <h2>Encontre o estágio dos seus sonhos</h2>
-                <p>Conectamos estudantes a empresas de todo o Brasil.</p>
-                <a href="#vagas" class="btn">Ver Vagas</a>
-            </div>
-        </section>
-
-        <section id="sobre">
-            <div class="container">
-                <h2>Sobre Nós</h2>
-                <p>Plataforma especializada em oportunidades de estágio para todas as áreas.</p>
-            </div>
-        </section>
-    </main>
-
-    <!-- Rodapé -->
-    <footer>
-        <div class="container">
-            <p>&copy; 2024 Conexão Estágios. Todos os direitos reservados.</p>
-        </div>
-    </footer>
-
-    <!-- JavaScript (opcional) -->
-    <script src="js/main.js"></script>
+  <section class="hero">
+    <div class="overlay"></div>
+    <div class="content">
+      <h1>Bem-vindo à Conexão Estágios</h1>
+      <p>Conectamos talentos ao mercado com inteligência, agilidade e propósito.</p>
+      <button class="button">Saiba Mais</button>
+    </div>
+  </section>
 </body>
 </html>
+

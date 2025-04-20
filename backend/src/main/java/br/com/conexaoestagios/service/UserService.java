@@ -1,79 +1,66 @@
 package br.com.conexaoestagios.service;
 
-import br.com.conexaoestagios.exceptions.UniqueFieldViolationException;
-import br.com.conexaoestagios.repository.AdminRepository;
-import br.com.conexaoestagios.repository.CompanyRepository;
-import br.com.conexaoestagios.repository.StudentRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Query;
+import br.com.conexaoestagios.dto.user.UserRequestDTO;
+import br.com.conexaoestagios.dto.user.UserResponseDTO;
+import br.com.conexaoestagios.dto.user.UserUpdateDTO;
+import br.com.conexaoestagios.entities.Company;
+import br.com.conexaoestagios.entities.users.User;
+import br.com.conexaoestagios.exceptions.NoUserException;
+import br.com.conexaoestagios.mapper.AddressMapper;
+import br.com.conexaoestagios.mapper.CompanyMapper;
+import br.com.conexaoestagios.mapper.UserMapper;
+import br.com.conexaoestagios.repository.UserRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
-    private final StudentRepository studentRepository;
-    private final CompanyRepository companyRepository;
-    private final AdminRepository adminRepository;
-    private final EntityManagerFactory entityManagerFactory;
+    private final PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
 
-    private static final Map<String, String> errorMessages = Map.of(
-            "email", "Email já está em uso.",
-            "username", "Nome de usuário já está em uso.",
-            "linkedin", "LinkedIn já está em uso.",
-            "cpf", "CPF já está em uso.",
-            "cnpj", "CNPF já está em uso.",
-            "legalName", "Razão Social já está em uso."
-    );
+    //TODO criar métodos para validar campos únicos em create e update
+    public UserResponseDTO create(@Valid UserRequestDTO userRequestDTO) {
 
-    public void validateUniqueFields(Class<?> entityClass, Long id, Map<String, Object> fieldsToCheck) {
-        EntityManager em = entityManagerFactory.createEntityManager();
-        List<String> violations = new ArrayList<>();
+        User user = UserMapper.toEntity(userRequestDTO);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        for (Map.Entry<String, Object> entry : fieldsToCheck.entrySet()) {
-            String field = entry.getKey();
-            Object value = entry.getValue();
-
-            String jpql = "SELECT COUNT(e) FROM " + entityClass.getSimpleName() + " e WHERE e." + field + " = :value";
-            if (id != null) {
-                jpql += " AND e.id <> :id";
-            }
-
-            Query query = em.createQuery(jpql);
-            query.setParameter("value", value);
-            if (id != null) {
-                query.setParameter("id", id);
-            }
-
-            Long count = (Long) query.getSingleResult();
-            if (count > 0) {
-                String message = errorMessages.getOrDefault(field, field + " já está em uso.");
-                violations.add(message);
-            }
-        }
-
-        em.close();
-
-        if (!violations.isEmpty()) {
-            throw new UniqueFieldViolationException(violations);
-        }
+        return UserMapper.toDto(userRepository.save(user));
     }
 
-    //TODO implements method to verify if is a admin
-    public boolean isUsernameFromThisID(Long id, String username) {
-        return studentRepository.findById(id).map(u -> u.getUsername().equals(username)).orElse(false)
-                || companyRepository.findById(id).map(u -> u.getUsername().equals(username)).orElse(false)
-                || adminRepository.findById(id).map(u -> u.getUsername().equals(username)).orElse(false);
+    public List<UserResponseDTO> findAll() {
+        return userRepository.findAll().stream().map(UserMapper::toDto).toList();
     }
 
-    public boolean isEmailFromThisID(Long id, String linkedin) {
-        return studentRepository.findById(id).map(u -> u.getEmail().equals(linkedin)).orElse(false)
-                || companyRepository.findById(id).map(u -> u.getEmail().equals(linkedin)).orElse(false)
-                || adminRepository.findById(id).map(u -> u.getEmail().equals(linkedin)).orElse(false);
+    public UserResponseDTO findById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new NoUserException("usuário", id));
+        return UserMapper.toDto(user);
+    }
+
+    public UserResponseDTO update(Long id, UserUpdateDTO userUpdateDTO) {
+
+        User user = userRepository.findById(id).orElseThrow(() -> new NoUserException("usuário", id));
+
+        if (userUpdateDTO.name() != null) user.setName(userUpdateDTO.name());
+        if (userUpdateDTO.username() != null) user.setUsername(userUpdateDTO.username());
+        if (userUpdateDTO.linkedin() != null) user.setLinkedin(userUpdateDTO.linkedin());
+        if (userUpdateDTO.email() != null) user.setEmail(userUpdateDTO.email());
+        if (userUpdateDTO.phoneNumber() != null) user.setPhoneNumber(userUpdateDTO.phoneNumber());
+        if (userUpdateDTO.addressRequestDTO() != null)
+            user.setAddress(AddressMapper.toEntity(userUpdateDTO.addressRequestDTO()));
+
+        return UserMapper.toDto(userRepository.save(user));
+    }
+
+    public void delete(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new NoUserException("usuário", id);
+        }
+        User user = userRepository.getReferenceById(id);
+        userRepository.delete(user);
     }
 }

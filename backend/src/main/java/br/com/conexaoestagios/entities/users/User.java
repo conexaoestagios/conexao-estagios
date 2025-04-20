@@ -26,12 +26,12 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //real name (trade name if user is a company)
+    //nome real (nome fantasia, se for empresa)
     @Column(nullable = false, name = "nome")
     @NotBlank
     private String name;
 
-    //username used in login
+    //nome de usuário (usado no login)
     @Column(nullable = false, name = "nome_de_usuario", unique = true)
     @NotBlank
     private String username;
@@ -54,10 +54,12 @@ public class User implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
     private LocalDateTime registrationDate = LocalDateTime.now();
 
+    //TODO criar método para setar conforme a entidade
     @Column(nullable = false, name = "role")
     private Role role;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")
     private Address address;
+
 }

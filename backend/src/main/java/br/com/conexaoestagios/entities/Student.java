@@ -12,7 +12,15 @@ import java.util.List;
 @Getter
 @Entity
 @Table(name = "estudantes")
-public class Student extends User {
+public class Student {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(nullable = false, name = "cpf", unique = true)
     private String cpf;
@@ -30,9 +38,5 @@ public class Student extends User {
 
     @Column(nullable = false, name = "area_interesse")
     private String areaOfInterest;
-
-    public Student() {
-        setRole(Role.ESTUDANTE);
-    }
 }
 

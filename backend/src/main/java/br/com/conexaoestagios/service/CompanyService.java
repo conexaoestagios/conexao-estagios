@@ -1,44 +1,35 @@
 package br.com.conexaoestagios.service;
 
-import br.com.conexaoestagios.mapper.CompanyMapper;
 import br.com.conexaoestagios.dto.company.CompanyRequestDTO;
 import br.com.conexaoestagios.dto.company.CompanyResponseDTO;
-import br.com.conexaoestagios.dto.company.CompanyUpdateDTO;
 import br.com.conexaoestagios.entities.Company;
+import br.com.conexaoestagios.entities.users.User;
+import br.com.conexaoestagios.enums.Role;
 import br.com.conexaoestagios.exceptions.NoUserException;
+import br.com.conexaoestagios.mapper.CompanyMapper;
 import br.com.conexaoestagios.repository.CompanyRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class CompanyService {
     private final CompanyRepository companyRepository;
-    private final PasswordEncoder passwordEncoder;
     private final UserService userService;
 
     public CompanyResponseDTO create(@Valid CompanyRequestDTO companyRequestDTO) {
-        validateUniqueFieldsBeforeCreate(companyRequestDTO);
+        User user = userService.create(companyRequestDTO.userRequestDTO(), Role.EMPRESA);
+        // validateUniqueFieldsBeforeCreate(companyRequestDTO);
 
-        Company company = CompanyMapper.toEntity(companyRequestDTO);
-        company.setPassword(passwordEncoder.encode(company.getPassword()));
+        Company company = companyRepository.save(CompanyMapper.toEntity(companyRequestDTO, user));
+        user.setId(company.getId());
 
-        ZoneId zoneId = ZoneId.of("America/Sao_Paulo");
-        LocalDateTime localDateTime = ZonedDateTime.now(zoneId).toLocalDateTime();
-        company.setRegistrationDate(localDateTime);
-
-        return CompanyMapper.toDto(companyRepository.save(company));
+        return CompanyMapper.toDto(company);
     }
 
     public List<CompanyResponseDTO> findAll() {
@@ -50,21 +41,15 @@ public class CompanyService {
         return CompanyMapper.toDto(company);
     }
 
-    public CompanyResponseDTO update(Long id, CompanyUpdateDTO companyUpdateDTO) {
-        validateUniqueFieldsBeforeUpdate(id, companyUpdateDTO);
-
+    //TODO criar método para validar usuário nulo
+    public CompanyResponseDTO update(Long id, CompanyRequestDTO companyRequestDTO) {
+        //  validateUniqueFieldsBeforeUpdate(id, companyRequestDTO);
         Company company = companyRepository.findById(id).orElseThrow(() -> new NoUserException("empresa", id));
 
-        if (companyUpdateDTO.name() != null) company.setName(companyUpdateDTO.name());
-        if (companyUpdateDTO.username() != null) company.setUsername(companyUpdateDTO.username());
-        if (companyUpdateDTO.legalName() != null) company.setLegalName(companyUpdateDTO.legalName());
-        if (companyUpdateDTO.cnpj() != null) company.setCnpj(companyUpdateDTO.cnpj());
-        if (companyUpdateDTO.linkedin() != null) company.setLinkedin(companyUpdateDTO.linkedin());
-        if (companyUpdateDTO.email() != null) company.setEmail(companyUpdateDTO.email());
-        if (companyUpdateDTO.sector() != null) company.setSector(companyUpdateDTO.sector());
-        if (companyUpdateDTO.phoneNumber() != null) company.setPhoneNumber(companyUpdateDTO.phoneNumber());
-        if (companyUpdateDTO.city() != null) company.setCity(companyUpdateDTO.city());
-        if (companyUpdateDTO.state() != null) company.setState(companyUpdateDTO.state());
+        if (companyRequestDTO.cnpj() != null) company.setCnpj(companyRequestDTO.cnpj());
+        if (companyRequestDTO.userRequestDTO() != null) userService.update(id, companyRequestDTO.userRequestDTO());
+        if (companyRequestDTO.legalName() != null) company.setLegalName(companyRequestDTO.legalName());
+        if (companyRequestDTO.sector() != null) company.setSector(companyRequestDTO.sector());
 
         return CompanyMapper.toDto(companyRepository.save(company));
     }
@@ -75,30 +60,6 @@ public class CompanyService {
         }
         Company company = companyRepository.getReferenceById(id);
         companyRepository.delete(company);
-    }
-
-
-    private void validateUniqueFieldsBeforeCreate(CompanyRequestDTO dto) {
-
-        Map<String, Object> uniqueFields = new HashMap<>();
-
-        if (dto.username() != null) uniqueFields.put("username", dto.username());
-        if (dto.email() != null) uniqueFields.put("email", dto.email());
-        if (dto.linkedin() != null) uniqueFields.put("linkedin", dto.linkedin());
-        if (dto.legalName() != null) uniqueFields.put("legalName", dto.legalName());
-
-        userService.validateUniqueFields(Company.class, null, uniqueFields);
-    }
-
-    private void validateUniqueFieldsBeforeUpdate(Long id, CompanyUpdateDTO dto) {
-        Map<String, Object> uniqueFields = new HashMap<>();
-
-        if (dto.username() != null) uniqueFields.put("username", dto.username());
-        if (dto.email() != null) uniqueFields.put("email", dto.email());
-        if (dto.linkedin() != null) uniqueFields.put("linkedin", dto.linkedin());
-        if (dto.legalName() != null) uniqueFields.put("legalName", dto.legalName());
-
-        userService.validateUniqueFields(Company.class, id, uniqueFields);
     }
 
 }

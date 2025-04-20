@@ -2,7 +2,9 @@ package br.com.conexaoestagios.mapper;
 
 import br.com.conexaoestagios.dto.company.CompanyRequestDTO;
 import br.com.conexaoestagios.dto.company.CompanyResponseDTO;
+import br.com.conexaoestagios.dto.user.UserResponseDTO;
 import br.com.conexaoestagios.entities.Company;
+import br.com.conexaoestagios.entities.users.User;
 
 public class CompanyMapper {
 
@@ -10,34 +12,18 @@ public class CompanyMapper {
 
         return new CompanyResponseDTO(
                 company.getId(),
-                company.getName(),
-                company.getUsername(),
                 company.getLegalName(),
-                company.getLinkedin(),
-                company.getEmail(),
                 company.getSector(),
-                company.getPhoneNumber(),
-                company.getCity(),
-                company.getState(),
-                company.getRole(),
-                company.getRegistrationDate()
-        );
+                UserMapper.toDto(company.getUser()));
     }
 
-    public static Company toEntity(CompanyRequestDTO companyRequestDTO) {
+    public static Company toEntity(CompanyRequestDTO companyRequestDTO, User user) {
         Company company = new Company();
 
-        company.setName(companyRequestDTO.name());
-        company.setUsername(companyRequestDTO.username());
-        company.setLegalName(companyRequestDTO.legalName());
+        company.setUser(user);
         company.setCnpj(companyRequestDTO.cnpj());
-        company.setLinkedin(companyRequestDTO.linkedin());
-        company.setEmail(companyRequestDTO.email());
-        company.setPassword(companyRequestDTO.password());
+        company.setLegalName(companyRequestDTO.legalName());
         company.setSector(companyRequestDTO.sector());
-        company.setPhoneNumber(companyRequestDTO.phoneNumber());
-        company.setCity(companyRequestDTO.city());
-        company.setState(companyRequestDTO.state());
 
         return company;
     }

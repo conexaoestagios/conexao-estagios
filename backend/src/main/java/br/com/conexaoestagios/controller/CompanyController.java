@@ -2,7 +2,6 @@ package br.com.conexaoestagios.controller;
 
 import br.com.conexaoestagios.dto.company.CompanyRequestDTO;
 import br.com.conexaoestagios.dto.company.CompanyResponseDTO;
-import br.com.conexaoestagios.dto.company.CompanyUpdateDTO;
 import br.com.conexaoestagios.service.CompanyService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -45,9 +44,9 @@ public class CompanyController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar Empresa", description = "Altera as informações de uma empresa caso exista no banco de dados.")
-    public ResponseEntity<?> updateCompany(@Valid @RequestBody CompanyUpdateDTO companyUpdateDTO, @PathVariable long id) {
+    public ResponseEntity<?> updateCompany(@Valid @RequestBody CompanyRequestDTO companyRequestDTO, @PathVariable long id) {
         AuthController.validateAccess(id);
-        CompanyResponseDTO updatedCompany = companyService.update(id, companyUpdateDTO);
+        CompanyResponseDTO updatedCompany = companyService.update(id, companyRequestDTO);
         return ResponseEntity.ok(updatedCompany);
     }
 

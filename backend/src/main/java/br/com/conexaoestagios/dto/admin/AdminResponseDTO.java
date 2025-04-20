@@ -1,9 +1,9 @@
 package br.com.conexaoestagios.dto.admin;
 
-import br.com.conexaoestagios.entities.users.User;
+import br.com.conexaoestagios.dto.user.UserResponseDTO;
 
 public record AdminResponseDTO(
-       Long id,
-        User user
+        Long id,
+      UserResponseDTO userResponseDTO
 ) {
 }

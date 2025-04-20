@@ -4,6 +4,7 @@ package br.com.conexaoestagios.mapper;
 import br.com.conexaoestagios.dto.user.UserRequestDTO;
 import br.com.conexaoestagios.dto.user.UserResponseDTO;
 import br.com.conexaoestagios.entities.users.User;
+import br.com.conexaoestagios.enums.Role;
 
 public class UserMapper {
 
@@ -17,12 +18,12 @@ public class UserMapper {
                 user.getEmail(),
                 user.getPhoneNumber(),
                 user.getRole(),
-                user.getAddress(),
+                AddressMapper.toDto(user.getAddress()),
                 user.getRegistrationDate()
         );
     }
 
-    public static User toEntity(UserRequestDTO userRequestDTO) {
+    public static User toEntity(UserRequestDTO userRequestDTO, Role role) {
 
         User user = new User();
 
@@ -30,9 +31,9 @@ public class UserMapper {
         user.setUsername(userRequestDTO.username());
         user.setLinkedin(userRequestDTO.linkedin());
         user.setEmail(userRequestDTO.email());
-        user.setPassword(userRequestDTO.password());
         user.setPhoneNumber(userRequestDTO.phoneNumber());
         user.setAddress(AddressMapper.toEntity(userRequestDTO.addressRequestDTO()));
+        user.setRole(role);
 
         return user;
     }

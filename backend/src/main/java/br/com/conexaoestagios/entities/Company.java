@@ -11,7 +11,15 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(name = "empresas")
-public class Company extends User {
+public class Company{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @Column(nullable = false, name = "cnpj", unique = true)
     private String cnpj;
@@ -22,7 +30,4 @@ public class Company extends User {
     @Column(nullable = false, name = "setor")
     private String sector;
 
-    public Company() {
-        setRole(Role.EMPRESA);
-    }
 }

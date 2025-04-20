@@ -11,9 +11,14 @@ import lombok.Setter;
 @Getter
 @Entity
 @Table(name = "admins")
-public class Admin extends User {
+public class Admin {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Admin() {
-        setRole(Role.ADMIN);
-    }
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
 }

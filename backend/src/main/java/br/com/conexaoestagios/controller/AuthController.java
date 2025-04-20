@@ -34,19 +34,19 @@ public class AuthController {
     private final AdminRepository adminRepository;
     private final CompanyRepository companyRepository;
     private final StudentRepository studentRepository;
-
-    @PostMapping("/auth/login")
-    @Operation(summary = "Realizar login", description = "Se credenciais válidas, retorna um token para validar sessões")
-    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequest) {
-        if (!isUserExisting(loginRequest.username()) || !passwordMathcer(loginRequest)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("dados inválidos");
-        }
-
-        var auth = new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password());
-        var authentication = authenticationManager.authenticate(auth);
-        String token = jwtService.generateToken(authentication);
-        return ResponseEntity.ok(new TokenResponseDTO(token));
-    }
+//
+//    @PostMapping("/auth/login")
+//    @Operation(summary = "Realizar login", description = "Se credenciais válidas, retorna um token para validar sessões")
+//    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequest) {
+//        if (!isUserExisting(loginRequest.username()) || !passwordMathcer(loginRequest)) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("dados inválidos");
+//        }
+//
+//        var auth = new UsernamePasswordAuthenticationToken(loginRequest.username(), loginRequest.password());
+//        var authentication = authenticationManager.authenticate(auth);
+//        String token = jwtService.generateToken(authentication);
+//        return ResponseEntity.ok(new TokenResponseDTO(token));
+//    }
 
     //validators
 
@@ -54,13 +54,12 @@ public class AuthController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(loginRequest.username());
         return passwordEncoder.matches(loginRequest.password(), userDetails.getPassword());
     }
-
-    boolean isUserExisting(String username) {
-        return companyRepository.existsByUsername(username) ||
-                studentRepository.existsByUsername(username) ||
-                adminRepository.existsByUsername(username);
-    }
-
+//
+//    boolean isUserExisting(String username) {
+//        return companyRepository.existsByUsername(username) ||
+//                studentRepository.existsByUsername(username) ||
+//                adminRepository.existsByUsername(username);
+//    }
 
     public static void validateAccess(@PathVariable Long id) {
         Long IdFromToken = JwtService.getUserIdFromToken();

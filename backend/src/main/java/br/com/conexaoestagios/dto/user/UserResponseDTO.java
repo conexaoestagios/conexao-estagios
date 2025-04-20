@@ -1,6 +1,6 @@
 package br.com.conexaoestagios.dto.user;
 
-import br.com.conexaoestagios.entities.Address;
+import br.com.conexaoestagios.dto.address.AddressResponseDTO;
 import br.com.conexaoestagios.enums.Role;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -14,7 +14,7 @@ public record UserResponseDTO(
         String email,
         String phoneNumber,
         Role role,
-        Address address,
+       AddressResponseDTO addressResponseDTO,
         @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
         LocalDateTime registrationDate
 ) {

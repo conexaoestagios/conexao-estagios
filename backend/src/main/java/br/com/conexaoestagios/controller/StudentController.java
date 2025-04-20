@@ -45,9 +45,9 @@ public class StudentController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar Estudante", description = "Altera as informações de um estudante caso exista no banco de dados.")
-    public ResponseEntity<?> updateStudant(@Valid @RequestBody StudentUpdateDTO studentUpdateDTO, @PathVariable long id) {
+    public ResponseEntity<?> updateStudant(@Valid @RequestBody StudentRequestDTO studentRequestDTO, @PathVariable long id) {
         AuthController.validateAccess(id);
-        StudentResponseDTO updatedStudent = studentService.update(id, studentUpdateDTO);
+        StudentResponseDTO updatedStudent = studentService.update(id, studentRequestDTO);
         return ResponseEntity.ok(updatedStudent);
     }
 

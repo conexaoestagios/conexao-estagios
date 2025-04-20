@@ -2,7 +2,6 @@ package br.com.conexaoestagios.controller;
 
 import br.com.conexaoestagios.dto.admin.AdminRequestDTO;
 import br.com.conexaoestagios.dto.admin.AdminResponseDTO;
-import br.com.conexaoestagios.dto.admin.AdminUpdateDTO;
 import br.com.conexaoestagios.service.AdminService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -46,9 +45,9 @@ public class AdminController {
 
     @PutMapping("/{id}")
     @Operation(summary = "Atualizar Administrador", description = "Altera as informações de um administrador caso exista no banco de dados.")
-    public ResponseEntity<?> updateAdmin(@Valid @RequestBody AdminUpdateDTO adminUpdateDTO, @PathVariable long id) {
+    public ResponseEntity<?> updateAdmin(@Valid @RequestBody AdminRequestDTO adminRequestDTO, @PathVariable long id) {
         AuthController.validateAccess(id);
-        AdminResponseDTO updatedAdmin = adminService.update(id, adminUpdateDTO);
+        AdminResponseDTO updatedAdmin = adminService.update(id, adminRequestDTO);
         return ResponseEntity.ok(updatedAdmin);
     }
 

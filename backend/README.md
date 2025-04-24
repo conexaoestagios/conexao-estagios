@@ -1,28 +1,6 @@
 
 # 📘 Conexão Estágios
 
-**Conexão Estágios** é uma iniciativa tecnológica que utiliza Inteligência Artificial para conectar estudantes universitários a empresas de forma eficiente, rápida e personalizada.
-
-## 🚀 Objetivo
-Facilitar o processo de recrutamento e seleção, aproximando talentos em formação das empresas que buscam novos profissionais para suas equipes.
-
-## 🔍 Como Funciona
-- Estudantes se cadastram na plataforma e informam suas preferências, habilidades e áreas de interesse.
-- Empresas publicam vagas de estágio e definem os critérios desejados.
-- A IA faz o match entre os perfis com maior compatibilidade, otimizando o tempo e aumentando a qualidade das contratações.
-
-## 👥 Público-alvo
-- **Estudantes universitários** em busca de estágio.
-- **Empresas** que desejam recrutar com mais agilidade e assertividade.
-
----
-
-## 📑 Conteúdo
-
-- [Sobre](#📘-conexão-estágios)
-- [Autenticação de Usuário](#🔐-autenticação-de-usuário)
-- [Licença](#📄-licença)
-
 🔗 **Este repositório representa a API do projeto _Conexão Estágios_**, responsável por gerenciar a autenticação, cadastros, segurança e integração com o banco de dados.  
 Logo abaixo, você encontrará os detalhes completos sobre o fluxo de autenticação e uso da aplicação.
 
@@ -105,13 +83,3 @@ STUDENT  | Rotas de estudantes
 COMPANY  | Rotas de empresas
 ADMIN    | Todas as rotas
 ```
-
-## 📄 Licença
-
-Copyright 2025 **Conexão Estágios**
-
-Este código é licenciado sob uma licença proprietária para o projeto **Conexão Estágios**. O uso, modificação, distribuição ou qualquer outro tipo de utilização do código sem a permissão explícita dos proprietários é estritamente proibido.
-
-Para obter permissão para utilizar o código, entre em contato com **doug.candido@gmail.com**.
-
-Nenhuma das permissões ou direitos acima confere à parte licenciada o direito de sublicenciar ou distribuir o código sem a permissão dos proprietários.

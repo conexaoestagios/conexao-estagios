@@ -5,86 +5,294 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre - Conexão Estágios</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
     <style>
-        body {
+        :root {
+            --primary: #4361ee;
+            --secondary: #3a0ca3;
+            --accent: #f72585;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --glass: rgba(255, 255, 255, 0.25);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        * {
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-image: url('imagens/background.jpg');
-            background-size: cover;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark);
+            line-height: 1.6;
+            min-height: 100vh;
             background-attachment: fixed;
-            color: #333;
+            overflow-x: hidden;
         }
+        
         .container {
-            padding: 40px;
-            background-color: rgba(255, 255, 255, 0.95);
-            max-width: 1000px;
-            margin: 0 auto;
-            border-radius: 10px;
+            padding: 2rem;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            max-width: 1200px;
+            margin: 5rem auto;
+            border-radius: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            overflow: hidden;
+            position: relative;
         }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+            z-index: -1;
+            animation: rotate 15s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
         h1, h2 {
             text-align: center;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-        .section {
-            margin-bottom: 40px;
+        
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        
+        .hero-text {
             text-align: center;
+            font-size: 1.25rem;
+            margin-bottom: 3rem;
+            color: var(--light);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
-        .section img {
-            max-width: 180px;
-            height: auto;
-            margin-bottom: 20px;
+        
+        .sections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
         }
+        
+        .section {
+            background: var(--glass);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            padding: 2rem;
+            border-radius: 16px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s forwards;
+        }
+        
+        .section:nth-child(1) { animation-delay: 0.2s; }
+        .section:nth-child(2) { animation-delay: 0.4s; }
+        .section:nth-child(3) { animation-delay: 0.6s; }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section p {
+            color: var(--light);
+            font-size: 1rem;
+        }
+        
+        .team-image-container {
+            position: relative;
+            margin: 4rem auto;
+            max-width: 800px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
         .team-image {
             display: block;
-            max-width: 100%;
-            margin: 40px auto 0;
-            border-radius: 12px;
+            width: 100%;
+            height: auto;
+            transition: var(--transition);
+            transform: translateZ(20px);
         }
-        .button-voltar {
-            display: block;
+        
+        .team-image-container:hover .team-image {
+            transform: scale(1.05) translateZ(30px);
+        }
+        
+        .cta-text {
             text-align: center;
-            margin: 50px auto 0;
-        }
-        .button-voltar a {
-            background-color: #003366;
+            font-size: 1.5rem;
+            margin: 2rem 0;
             color: white;
-            padding: 12px 25px;
-            text-decoration: none;
-            border-radius: 5px;
+            font-weight: 500;
         }
+        
+        .button-voltar {
+            display: flex;
+            justify-content: center;
+            margin: 3rem auto 0;
+        }
+        
+        .button-voltar a {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem 2.5rem;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(67, 97, 238, 0.3);
+            position: relative;
+            overflow: hidden;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .button-voltar a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+        
         .button-voltar a:hover {
-            background-color: #00509e;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
+        }
+        
+        .button-voltar a:hover::before {
+            left: 100%;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                margin: 2rem auto;
+                padding: 1.5rem;
+                border-radius: 0;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .sections-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Sobre a Conexão Estágios</h1>
-        <p style="text-align: center; font-size: 18px;">Acreditamos no poder da tecnologia para conectar jovens talentos a oportunidades reais no mercado.</p>
+        <p class="hero-text">Acreditamos no poder da tecnologia para conectar jovens talentos a oportunidades reais no mercado.</p>
 
-        <div class="section">
-            <img src="imagens/missao.jpg" alt="Missão">
-            <h2>Missão</h2>
-            <p>Conectar estudantes da área de tecnologia às empresas certas, reduzindo a rotatividade e aumentando a efetividade dos processos de estágio.</p>
+        <div class="sections-grid">
+            <div class="section">
+                <i class="icon ion-md-bulb section-icon"></i>
+                <h2>Missão</h2>
+                <p>Conectar estudantes da área de tecnologia às empresas certas, reduzindo a rotatividade e aumentando a efetividade dos processos de estágio.</p>
+            </div>
+
+            <div class="section">
+                <i class="icon ion-md-eye section-icon"></i>
+                <h2>Visão</h2>
+                <p>Ser referência nacional em intermediação inteligente de estágios, com tecnologia e precisão no match entre talentos e empresas.</p>
+            </div>
+
+            <div class="section">
+                <i class="icon ion-md-ribbon section-icon"></i>
+                <h2>Valores</h2>
+                <p>Ética, inclusão, inovação, transparência e compromisso com o desenvolvimento de jovens talentos.</p>
+            </div>
         </div>
 
-        <div class="section">
-            <img src="imagens/visao.jpg" alt="Visão">
-            <h2>Visão</h2>
-            <p>Ser referência nacional em intermediação inteligente de estágios, com tecnologia e precisão no match entre talentos e empresas.</p>
+        <div class="team-image-container">
+            <img class="team-image" src="imagens/colaboracao.jpg" alt="Equipe colaborando">
         </div>
-
-        <div class="section">
-            <img src="imagens/valores.jpg" alt="Valores">
-            <h2>Valores</h2>
-            <p>Ética, inclusão, inovação, transparência e compromisso com o desenvolvimento de jovens talentos.</p>
-        </div>
-
-        <img class="team-image" src="imagens/colaboracao.jpg" alt="Equipe colaborando">
-        <p style="text-align: center; font-size: 20px;">Quer fazer parte dessa transformação?</p>
+        
+        <p class="cta-text">Quer fazer parte dessa transformação?</p>
 
         <div class="button-voltar">
-            <a href="index.html">Voltar à Página Inicial</a>
+            <a href="index.html">
+                <i class="icon ion-md-arrow-back"></i>
+                Voltar à Página Inicial
+            </a>
         </div>
     </div>
+
+    <script>
+        // Adiciona observador de interseção para animações ao rolar
+        const sections = document.querySelectorAll('.section');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = `fadeIn 0.6s forwards`;
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>

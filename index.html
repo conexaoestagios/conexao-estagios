@@ -5,12 +5,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conexão Estágios - Plataforma de Estágios em Tecnologia</title>
+  <!-- Meta tags para SEO -->
+  <meta name="description" content="Conectamos estudantes de tecnologia às melhores oportunidades de estágio do mercado">
   <!-- Pré-carregamento otimizado -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" as="style">
   <link rel="preload" href="background8.jpg" as="image">
-  <!-- Meta tags para SEO -->
-  <meta name="description" content="Conectamos estudantes de tecnologia às melhores oportunidades de estágio do mercado">
-  <meta property="og:image" content="imagens/share-image.jpg">
   <style>
     :root {
       --primary: #4361EE;
@@ -33,6 +32,7 @@
       color: var(--dark);
       font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
       line-height: 1.6;
+      scroll-behavior: smooth;
     }
     
     /* Fallback font enquanto Poppins carrega */
@@ -209,6 +209,85 @@
       60% { transform: translateY(-10px) translateX(-50%); }
     }
     
+    /* Seção Equipe - Versão Melhorada */
+    .team-section {
+      padding: 5rem 2rem;
+      background-color: var(--light);
+      text-align: center;
+    }
+    
+    .team-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 2rem;
+      color: var(--secondary);
+    }
+    
+    .team-image-container {
+      position: relative;
+      max-width: 800px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    }
+    
+    .team-image {
+      display: block;
+      width: 100%;
+      height: auto;
+      transition: transform 0.5s ease;
+    }
+    
+    .team-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(67, 97, 238, 0.85);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.4s ease;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .team-image-container:hover .team-overlay {
+      opacity: 1;
+    }
+    
+    .team-overlay h3 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+    
+    .team-overlay p {
+      font-size: 1.1rem;
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+    }
+    
+    .team-cta {
+      margin-top: 1rem;
+      padding: 0.8rem 2rem;
+      background: white;
+      color: var(--primary);
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    
+    .team-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    
     footer {
       background: var(--dark);
       text-align: center;
@@ -235,6 +314,14 @@
       .hero h2 {
         font-size: 2.2rem;
       }
+      
+      .team-overlay h3 {
+        font-size: 1.5rem;
+      }
+      
+      .team-overlay p {
+        font-size: 1rem;
+      }
     }
   </style>
 </head>
@@ -255,7 +342,20 @@
       <p>Junte-se a milhares de estudantes que transformaram suas carreiras com a Conexão Estágios.</p>
       <button class="cta" onclick="window.location.href='https://forms.gle/seulinkdecadastro'">Quero me cadastrar</button>
     </div>
-    <div class="scroll-indicator" onclick="document.querySelector('footer').scrollIntoView({ behavior: 'smooth' })">⌄</div>
+    <div class="scroll-indicator" onclick="document.querySelector('.team-section').scrollIntoView({ behavior: 'smooth' })">⌄</div>
+  </section>
+
+  <!-- Seção Equipe Melhorada -->
+  <section class="team-section">
+    <h2>Nossa Equipe</h2>
+    <div class="team-image-container">
+      <img class="team-image" src="imagens/colaboracao.jpg" alt="Nossa equipe colaborando">
+      <div class="team-overlay">
+        <h3>Conheça Nosso Time</h3>
+        <p>Profissionais dedicados a conectar os melhores talentos com as melhores oportunidades no mercado de tecnologia.</p>
+        <a href="equipe.html" class="team-cta">Ver Perfis</a>
+      </div>
+    </div>
   </section>
 
   <footer>

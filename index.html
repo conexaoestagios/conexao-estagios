@@ -5,21 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conexão Estágios - Plataforma de Estágios em Tecnologia</title>
-  <!-- Meta tags para SEO -->
-  <meta name="description" content="Conectamos estudantes de tecnologia às melhores oportunidades de estágio do mercado">
-  <!-- Pré-carregamento otimizado -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" as="style">
-  <link rel="preload" href="background8.jpg" as="image">
+  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
   <style>
     :root {
       --primary: #4361EE;
       --secondary: #3A0CA3;
       --accent: #F72585;
-      --success: #4CC9F0;
       --light: #F8F9FA;
       --dark: #212529;
-      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       --whatsapp-green: #25D366;
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     }
     
     * {
@@ -28,7 +24,107 @@
       box-sizing: border-box;
     }
     
-    /* [Seu CSS existente permanece igual] */
+    body, html {
+      height: 100%;
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--dark);
+      line-height: 1.6;
+    }
+    
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.5rem 2.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      z-index: 1000;
+      transition: var(--transition);
+    }
+    
+    header.scrolled {
+      background: rgba(67, 97, 238, 0.9);
+      padding: 1rem 2.5rem;
+    }
+    
+    header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--primary), var(--light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      position: relative;
+    }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
+    .hero {
+      background: linear-gradient(rgba(67, 97, 238, 0.7), rgba(58, 12, 163, 0.7)), url('background8.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 2rem;
+      color: white;
+    }
+    
+    .hero h2 {
+      font-size: 3rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      max-width: 600px;
+    }
+    
+    .cta {
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 1rem 2.5rem;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+    }
+    
+    .cta:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(67, 97, 238, 0.6);
+    }
     
     /* Botão do WhatsApp */
     .whatsapp-float {
@@ -40,97 +136,78 @@
       background-color: var(--whatsapp-green);
       color: white;
       border-radius: 50%;
-      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 30px;
       box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
       z-index: 100;
       transition: var(--transition);
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
     
     .whatsapp-float:hover {
-      transform: scale(1.1) translateY(-5px);
-      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.4);
+      transform: scale(1.1);
     }
     
-    .whatsapp-float::before,
-    .whatsapp-float::after {
-      content: '';
-      position: absolute;
-      border: 2px solid var(--whatsapp-green);
-      left: -20px;
-      right: -20px;
-      top: -20px;
-      bottom: -20px;
-      border-radius: 50%;
-      animation: pulse 2s linear infinite;
-      opacity: 0;
-    }
-    
-    .whatsapp-float::after {
-      animation-delay: 0.5s;
-    }
-    
-    @keyframes pulse {
-      0% { transform: scale(0.5); opacity: 0; }
-      50% { opacity: 0.5; }
-      100% { transform: scale(1.2); opacity: 0; }
-    }
-    
-    /* Tooltip */
-    .whatsapp-tooltip {
-      position: absolute;
-      right: 70px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: white;
-      color: var(--dark);
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    
-    .whatsapp-float:hover .whatsapp-tooltip {
-      opacity: 1;
+    footer {
+      background: var(--dark);
+      color: white;
+      text-align: center;
+      padding: 2rem;
     }
     
     @media (max-width: 768px) {
-      .whatsapp-float {
-        width: 50px;
-        height: 50px;
-        bottom: 20px;
-        right: 20px;
+      header {
+        flex-direction: column;
+        padding: 1rem;
       }
       
-      .whatsapp-tooltip {
-        display: none;
+      nav {
+        margin-top: 1rem;
+      }
+      
+      .hero h2 {
+        font-size: 2rem;
       }
     }
   </style>
 </head>
 <body>
-  <!-- [Seu conteúdo existente permanece igual] -->
-  
+  <header id="main-header">
+    <h1>Conexão Estágios</h1>
+    <nav>
+      <a href="sobre.html">Sobre</a>
+      <a href="cadastro-empresa.html">Empresas</a>
+      <a href="cadastro-estudantes.html">Estudantes</a>
+      <a href="duvidas-sugestoes.html">Contato</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Conquiste o estágio dos seus sonhos</h2>
+    <p>Junte-se a milhares de estudantes que transformaram suas carreiras com a Conexão Estágios.</p>
+    <button class="cta" onclick="window.location.href='https://forms.gle/seulinkdecadastro'">Quero me cadastrar</button>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Conexão Estágios. Todos os direitos reservados.</p>
+  </footer>
+
   <!-- Botão do WhatsApp -->
-  <a href="https://wa.me/5583981679282?text=Olá,%20tenho%20uma%20dúvida%20sobre%20a%20Conexão%20Estágios" 
-     class="whatsapp-float" 
-     target="_blank"
-     aria-label="Fale conosco no WhatsApp">
-     <i class="icon ion-logo-whatsapp"></i>
-     <span class="whatsapp-tooltip">Tire suas dúvidas</span>
+  <a href="https://wa.me/5583981679282" class="whatsapp-float" target="_blank">
+    <i class="icon ion-logo-whatsapp"></i>
   </a>
 
-  <!-- [Seu footer e scripts existentes] -->
-
-  <!-- Adicione isto no seu <head> se ainda não tiver -->
-  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+  <script>
+    // Efeito no header ao rolar
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
 </body>
 </html>

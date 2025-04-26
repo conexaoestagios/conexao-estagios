@@ -4,106 +4,282 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Conexão Estágios</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <title>Conexão Estágios - Plataforma de Estágios em Tecnologia</title>
+  <!-- Pré-carregamento otimizado -->
+  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" as="style">
+  <link rel="preload" href="background8.jpg" as="image">
+  <!-- Meta tags para SEO -->
+  <meta name="description" content="Conectamos estudantes de tecnologia às melhores oportunidades de estágio do mercado">
+  <meta property="og:image" content="imagens/share-image.jpg">
   <style>
+    :root {
+      --primary: #4361EE;
+      --secondary: #3A0CA3;
+      --accent: #F72585;
+      --success: #4CC9F0;
+      --light: #F8F9FA;
+      --dark: #212529;
+      --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: 'Inter', sans-serif;
     }
+    
     body, html {
       height: 100%;
-      color: #fff;
+      color: var(--dark);
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
     }
+    
+    /* Fallback font enquanto Poppins carrega */
+    @supports not (font-variation-settings: normal) {
+      body { font-family: 'Inter', sans-serif; }
+    }
+    
     header {
       position: fixed;
       top: 0;
       width: 100%;
-      padding: 20px 40px;
+      padding: 1.5rem 2.5rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(10px);
-      z-index: 999;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      z-index: 1000;
+      transition: var(--transition);
     }
+    
+    header.scrolled {
+      padding: 1rem 2.5rem;
+      background: rgba(67, 97, 238, 0.9);
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    }
+    
     header h1 {
-      font-size: 1.5rem;
-      font-weight: 800;
+      font-size: 1.8rem;
+      font-weight: 700;
+      background: linear-gradient(45deg, var(--primary), var(--light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
+    
+    nav {
+      display: flex;
+      gap: 1.5rem;
+    }
+    
     nav a {
-      margin-left: 20px;
       text-decoration: none;
-      color: white;
+      color: var(--light);
       font-weight: 600;
-      transition: color 0.3s;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: var(--transition);
     }
+    
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: var(--transition);
+    }
+    
     nav a:hover {
-      color: #00d1b2;
+      color: var(--accent);
     }
+    
+    nav a:hover::after {
+      width: 100%;
+    }
+    
     .hero {
-      background: url('background8.jpg') no-repeat center center/cover;
+      background: linear-gradient(rgba(67, 97, 238, 0.7), rgba(58, 12, 163, 0.7)), url('background8.jpg') no-repeat center center/cover;
       height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 0 20px;
+      padding: 0 2rem;
+      color: var(--light);
+      position: relative;
+      overflow: hidden;
     }
-    .hero h2 {
-      font-size: 3rem;
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      z-index: 0;
+      animation: rotate 15s linear infinite;
+    }
+    
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
       max-width: 800px;
     }
-    .hero p {
-      font-size: 1.2rem;
-      margin: 20px 0;
-      max-width: 600px;
+    
+    .hero h2 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
+    
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      margin-bottom: 2.5rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
     .cta {
-      background: #00d1b2;
-      color: #fff;
-      padding: 15px 30px;
-      font-size: 1rem;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      color: var(--light);
+      padding: 1rem 2.5rem;
+      font-size: 1.1rem;
       font-weight: 600;
       border: none;
-      border-radius: 8px;
+      border-radius: 50px;
       cursor: pointer;
-      transition: background 0.3s;
+      transition: var(--transition);
+      box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
     }
+    
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+      z-index: -1;
+    }
+    
     .cta:hover {
-      background: #00b89c;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(67, 97, 238, 0.6);
     }
+    
+    .cta:hover::before {
+      left: 100%;
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--light);
+      font-size: 2rem;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+      40% { transform: translateY(-20px) translateX(-50%); }
+      60% { transform: translateY(-10px) translateX(-50%); }
+    }
+    
     footer {
-      background: #111;
+      background: var(--dark);
       text-align: center;
-      padding: 20px;
+      padding: 2rem;
+      color: var(--light);
+    }
+    
+    footer p {
       font-size: 0.9rem;
+    }
+    
+    /* Responsividade */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+        flex-direction: column;
+      }
+      
+      nav {
+        margin-top: 1rem;
+        gap: 1rem;
+      }
+      
+      .hero h2 {
+        font-size: 2.2rem;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
+  <header id="main-header">
     <h1>Conexão Estágios</h1>
     <nav>
       <a href="sobre.html">Sobre</a>      
-      <a href="cadastro-empresa.html">Cadastro de Empresas</a>
-      <a href="cadastro-estudantes.html">Cadastro de Estudantes</a>
-      <a href="duvidas-sugestoes.html">Dúvidas e Sugestões</a>      
+      <a href="cadastro-empresa.html">Empresas</a>
+      <a href="cadastro-estudantes.html">Estudantes</a>
+      <a href="duvidas-sugestoes.html">Contato</a>      
     </nav>
   </header>
 
   <section class="hero">
-    <h2>Conquiste o estágio dos seus sonhos</h2>
-    <p>Junte-se a milhares de estudantes que transformaram suas carreiras com a Conexão Estágios.</p>
-    <button class="cta" onclick="window.location.href='https://forms.gle/seulinkdecadastro'">Quero me cadastrar</button>
+    <div class="hero-content">
+      <h2>Conquiste o estágio dos seus sonhos</h2>
+      <p>Junte-se a milhares de estudantes que transformaram suas carreiras com a Conexão Estágios.</p>
+      <button class="cta" onclick="window.location.href='https://forms.gle/seulinkdecadastro'">Quero me cadastrar</button>
+    </div>
+    <div class="scroll-indicator" onclick="document.querySelector('footer').scrollIntoView({ behavior: 'smooth' })">⌄</div>
   </section>
 
   <footer>
     <p>&copy; 2025 Conexão Estágios. Todos os direitos reservados.</p>
   </footer>
+
+  <script>
+    // Efeito de scroll no header
+    window.addEventListener('scroll', function() {
+      const header = document.getElementById('main-header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+    
+    // Carregamento otimizado de fontes
+    window.onload = function() {
+      const fontLink = document.createElement('link');
+      fontLink.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap';
+      fontLink.rel = 'stylesheet';
+      document.head.appendChild(fontLink);
+    };
+  </script>
 </body>
 </html>
-

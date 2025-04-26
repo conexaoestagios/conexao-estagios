@@ -23,7 +23,7 @@ public record StudentRequestDTO(
         @NotBlank(message = "área de interesse é obrigatória")
         String areaOfInterest,
 
-        @NotBlank(message = "Defina um usuário")
+        @NotNull(message = "Defina um usuário")
         UserRequestDTO userRequestDTO
 ) {
 }

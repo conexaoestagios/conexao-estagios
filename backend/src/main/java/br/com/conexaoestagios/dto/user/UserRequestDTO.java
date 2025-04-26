@@ -1,8 +1,8 @@
 package br.com.conexaoestagios.dto.user;
 
 import br.com.conexaoestagios.dto.address.AddressRequestDTO;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -18,7 +18,6 @@ public record UserRequestDTO(
         String username,
 
         @NotBlank(message = "Email é obrigatório")
-        @Email(message = "insira um formato de email válido")
         String email,
 
         @NotBlank(message = "Senha é obrigatória")
@@ -31,6 +30,7 @@ public record UserRequestDTO(
         @Pattern(regexp = "^https:\\/\\/www\\.linkedin\\.com\\/in\\/.*$", message = "Insira um link válido do LinkedIn que comece com https://www.linkedin.com/in/")
         String linkedin,
 
+        @NotNull(message = "Endereço incompleto")
         AddressRequestDTO addressRequestDTO
-        ) {
+) {
 }

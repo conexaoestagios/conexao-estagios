@@ -1,10 +1,10 @@
 package br.com.conexaoestagios.dto.admin;
 
 import br.com.conexaoestagios.dto.user.UserRequestDTO;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public record AdminRequestDTO(
-        @NotBlank(message = "Defina um usuário")
+        @NotNull(message = "Defina um usuário")
         UserRequestDTO userRequestDTO
 ) {
 }

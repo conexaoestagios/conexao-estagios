@@ -2,6 +2,7 @@ package br.com.conexaoestagios.dto.company;
 
 import br.com.conexaoestagios.dto.user.UserRequestDTO;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -18,7 +19,7 @@ public record CompanyRequestDTO(
         @NotBlank(message = "Setor é obrigatório")
         String sector,
 
-        @NotBlank(message = "Defina um usuário")
+        @NotNull(message = "Defina um usuário")
         UserRequestDTO userRequestDTO
 ) {
 }

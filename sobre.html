@@ -5,10 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre - Conexão Estágios</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" as="style">
     <style>
         :root {
             --primary: #4361ee;
@@ -33,7 +30,6 @@
             line-height: 1.6;
             min-height: 100vh;
             background-attachment: fixed;
-            overflow-x: hidden;
         }
         
         .container {
@@ -46,8 +42,8 @@
             border-radius: 24px;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.18);
-            overflow: hidden;
             position: relative;
+            overflow: hidden;
         }
         
         .container::before {
@@ -87,12 +83,15 @@
             font-weight: 600;
         }
         
-        .hero-text {
+        .intro-text {
             text-align: center;
             font-size: 1.25rem;
             margin-bottom: 3rem;
             color: var(--light);
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.8;
         }
         
         .sections-grid {
@@ -141,29 +140,23 @@
         .section p {
             color: var(--light);
             font-size: 1rem;
+            line-height: 1.8;
         }
         
-        .team-image-container {
-            position: relative;
-            margin: 4rem auto;
-            max-width: 800px;
+        .mission-statement {
+            background: rgba(67, 97, 238, 0.2);
+            padding: 2rem;
             border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            transform-style: preserve-3d;
-            perspective: 1000px;
+            margin: 3rem 0;
+            border-left: 4px solid var(--accent);
         }
         
-        .team-image {
-            display: block;
-            width: 100%;
-            height: auto;
-            transition: var(--transition);
-            transform: translateZ(20px);
-        }
-        
-        .team-image-container:hover .team-image {
-            transform: scale(1.05) translateZ(30px);
+        .mission-statement p {
+            font-size: 1.2rem;
+            color: var(--light);
+            line-height: 1.8;
+            text-align: center;
+            font-style: italic;
         }
         
         .cta-text {
@@ -233,41 +226,51 @@
                 font-size: 1.5rem;
             }
             
+            .intro-text {
+                font-size: 1.1rem;
+            }
+            
             .sections-grid {
                 grid-template-columns: 1fr;
             }
         }
     </style>
+    <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <h1>Sobre a Conexão Estágios</h1>
-        <p class="hero-text">Acreditamos no poder da tecnologia para conectar jovens talentos a oportunidades reais no mercado.</p>
+        
+        <div class="intro-text">
+            <p>Na Conexão Estágios, acreditamos que grandes talentos começam com grandes oportunidades.</p>
+            
+            <div class="mission-statement">
+                <p>Não somos apenas uma plataforma de estágios. Somos um elo entre o presente e o futuro do trabalho.</p>
+            </div>
+            
+            <p>Nascemos da inquietação em torno de um desafio comum: a dificuldade das empresas — especialmente no setor de tecnologia — em encontrar estagiários alinhados tecnicamente e preparados para crescer junto com o negócio. Unimos tecnologia, inteligência artificial e curadoria humana para transformar esse processo em uma experiência ágil, inteligente e eficiente.</p>
+        </div>
 
         <div class="sections-grid">
             <div class="section">
                 <i class="icon ion-md-bulb section-icon"></i>
                 <h2>Missão</h2>
-                <p>Conectar estudantes da área de tecnologia às empresas certas, reduzindo a rotatividade e aumentando a efetividade dos processos de estágio.</p>
+                <p>Conectar empresas inovadoras a talentos com alto potencial de desenvolvimento.</p>
             </div>
 
             <div class="section">
                 <i class="icon ion-md-eye section-icon"></i>
                 <h2>Visão</h2>
-                <p>Ser referência nacional em intermediação inteligente de estágios, com tecnologia e precisão no match entre talentos e empresas.</p>
+                <p>Ser referência em um mercado em que a escolha de um estagiário não seja mais uma aposta, mas uma decisão estratégica.</p>
             </div>
 
             <div class="section">
                 <i class="icon ion-md-ribbon section-icon"></i>
                 <h2>Valores</h2>
-                <p>Ética, inclusão, inovação, transparência e compromisso com o desenvolvimento de jovens talentos.</p>
+                <p>Ética, diversidade, inovação e compromisso com o futuro profissional de cada jovem.</p>
             </div>
         </div>
 
-        <div class="team-image-container">
-            <img class="team-image" src="imagens/colaboracao.jpg" alt="Equipe colaborando">
-        </div>
-        
         <p class="cta-text">Quer fazer parte dessa transformação?</p>
 
         <div class="button-voltar">

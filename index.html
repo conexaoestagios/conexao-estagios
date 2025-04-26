@@ -5,13 +5,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Conexão Estágios - Plataforma de Estágios em Tecnologia</title>
+  <!-- Meta tags para SEO -->
+  <meta name="description" content="Conectamos estudantes de tecnologia às melhores oportunidades de estágio do mercado">
+  <!-- Pré-carregamento otimizado -->
   <link rel="preload" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" as="style">
-  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
+  <link rel="preload" href="background8.jpg" as="image">
   <style>
     :root {
       --primary: #4361EE;
       --secondary: #3A0CA3;
       --accent: #F72585;
+      --success: #4CC9F0;
       --light: #F8F9FA;
       --dark: #212529;
       --whatsapp-green: #25D366;
@@ -32,6 +36,11 @@
       scroll-behavior: smooth;
     }
     
+    /* Fallback font enquanto Poppins carrega */
+    @supports not (font-variation-settings: normal) {
+      body { font-family: 'Inter', sans-serif; }
+    }
+    
     header {
       position: fixed;
       top: 0;
@@ -43,14 +52,14 @@
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       z-index: 1000;
       transition: var(--transition);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     header.scrolled {
-      background: rgba(67, 97, 238, 0.9);
       padding: 1rem 2.5rem;
+      background: rgba(67, 97, 238, 0.9);
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     }
     
@@ -61,7 +70,6 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      transition: var(--transition);
     }
     
     nav {
@@ -70,8 +78,8 @@
     }
     
     nav a {
-      color: white;
       text-decoration: none;
+      color: var(--light);
       font-weight: 600;
       position: relative;
       padding: 0.5rem 0;
@@ -106,7 +114,7 @@
       align-items: center;
       text-align: center;
       padding: 0 2rem;
-      color: white;
+      color: var(--light);
       position: relative;
       overflow: hidden;
     }
@@ -132,13 +140,6 @@
       position: relative;
       z-index: 1;
       max-width: 800px;
-      transform: translateY(20px);
-      opacity: 0;
-      animation: fadeInUp 0.8s 0.3s forwards;
-    }
-    
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
     }
     
     .hero h2 {
@@ -157,7 +158,7 @@
     
     .cta {
       background: linear-gradient(45deg, var(--primary), var(--secondary));
-      color: white;
+      color: var(--light);
       padding: 1rem 2.5rem;
       font-size: 1.1rem;
       font-weight: 600;
@@ -169,6 +170,8 @@
       position: relative;
       overflow: hidden;
       z-index: 1;
+      display: inline-flex;
+      align-items: center;
     }
     
     .cta::before {
@@ -192,16 +195,27 @@
       left: 100%;
     }
     
+    .cta-icon {
+      margin-right: 10px;
+      font-size: 1.2em;
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.1); }
+      100% { transform: scale(1); }
+    }
+    
     .scroll-indicator {
       position: absolute;
       bottom: 2rem;
       left: 50%;
       transform: translateX(-50%);
-      color: white;
+      color: var(--light);
       font-size: 2rem;
       animation: bounce 2s infinite;
       cursor: pointer;
-      z-index: 1;
     }
     
     @keyframes bounce {
@@ -210,7 +224,7 @@
       60% { transform: translateY(-10px) translateX(-50%); }
     }
     
-    /* Botão do WhatsApp melhorado */
+    /* Botão do WhatsApp */
     .whatsapp-float {
       position: fixed;
       bottom: 30px;
@@ -227,60 +241,37 @@
       box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
       z-index: 100;
       transition: var(--transition);
-      animation: pulse 2s infinite;
-    }
-    
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
-      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
     
     .whatsapp-float:hover {
-      transform: scale(1.1) rotate(10deg);
-    }
-    
-    .whatsapp-tooltip {
-      position: absolute;
-      right: 70px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: white;
-      color: var(--dark);
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-weight: 600;
-      white-space: nowrap;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    
-    .whatsapp-float:hover .whatsapp-tooltip {
-      opacity: 1;
+      transform: scale(1.1);
     }
     
     footer {
       background: var(--dark);
-      color: white;
       text-align: center;
       padding: 2rem;
+      color: var(--light);
     }
     
+    footer p {
+      font-size: 0.9rem;
+    }
+    
+    /* Responsividade */
     @media (max-width: 768px) {
       header {
-        flex-direction: column;
         padding: 1rem;
+        flex-direction: column;
       }
       
       nav {
         margin-top: 1rem;
+        gap: 1rem;
       }
       
       .hero h2 {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
       
       .whatsapp-float {
@@ -289,21 +280,18 @@
         bottom: 20px;
         right: 20px;
       }
-      
-      .whatsapp-tooltip {
-        display: none;
-      }
     }
   </style>
+  <link href="https://unpkg.com/ionicons@4.5.10-0/dist/css/ionicons.min.css" rel="stylesheet">
 </head>
 <body>
   <header id="main-header">
     <h1>Conexão Estágios</h1>
     <nav>
-      <a href="sobre.html">Sobre</a>
+      <a href="sobre.html">Sobre</a>      
       <a href="cadastro-empresa.html">Empresas</a>
       <a href="cadastro-estudantes.html">Estudantes</a>
-      <a href="duvidas-sugestoes.html">Contato</a>
+      <a href="duvidas-sugestoes.html">Contato</a>      
     </nav>
   </header>
 
@@ -311,7 +299,9 @@
     <div class="hero-content">
       <h2>Conquiste o estágio dos seus sonhos</h2>
       <p>Junte-se a milhares de estudantes que transformaram suas carreiras com a Conexão Estágios.</p>
-      <button class="cta" onclick="window.location.href='https://forms.gle/seulinkdecadastro'">Quero me cadastrar</button>
+      <button class="cta" onclick="window.open('https://chatgpt.com/g/g-67a4d586bc288191b94f0782b3816173-lumi', '_blank')">
+        <span class="cta-icon">✨</span> Quero me cadastrar com a Lumi
+      </button>
     </div>
     <div class="scroll-indicator" onclick="document.querySelector('footer').scrollIntoView({ behavior: 'smooth' })">⌄</div>
   </section>
@@ -320,14 +310,13 @@
     <p>&copy; 2025 Conexão Estágios. Todos os direitos reservados.</p>
   </footer>
 
-  <!-- Botão do WhatsApp com tooltip -->
-  <a href="https://wa.me/5583981679282" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
+  <!-- Botão do WhatsApp -->
+  <a href="https://wa.me/5511999999999" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
     <i class="icon ion-logo-whatsapp"></i>
-    <span class="whatsapp-tooltip">Tire suas dúvidas</span>
   </a>
 
   <script>
-    // Header scroll effect
+    // Efeito de scroll no header
     window.addEventListener('scroll', function() {
       const header = document.getElementById('main-header');
       if (window.scrollY > 50) {
@@ -337,7 +326,7 @@
       }
     });
     
-    // Load fonts after page load
+    // Carregamento otimizado de fontes
     window.onload = function() {
       const fontLink = document.createElement('link');
       fontLink.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap';
@@ -347,3 +336,4 @@
   </script>
 </body>
 </html>
+ 

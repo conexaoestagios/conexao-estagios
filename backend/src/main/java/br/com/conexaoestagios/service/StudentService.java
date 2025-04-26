@@ -10,13 +10,11 @@ import br.com.conexaoestagios.mapper.StudentMapper;
 import br.com.conexaoestagios.repository.StudentRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class StudentService {
@@ -26,7 +24,6 @@ public class StudentService {
 
     public StudentResponseDTO create(@Valid StudentRequestDTO studentRequestDTO) {
         User user = userService.create(studentRequestDTO.userRequestDTO(), Role.ESTUDANTE);
-        //   validateUniqueFieldsBeforeCreate(studentRequestDTO);
 
         Student student = studentRepository.save(StudentMapper.toEntity(studentRequestDTO, user));
         user.setId(student.getId());
@@ -44,7 +41,7 @@ public class StudentService {
     }
 
     public StudentResponseDTO update(Long id, StudentRequestDTO studentRequestDTO) {
-        // validateUniqueFieldsBeforeUpdate(id, studentRequestDTO);
+
         Student student = studentRepository.findById(id).orElseThrow(() -> new NoUserException("estudante", id));
 
         if (studentRequestDTO.userRequestDTO() != null) userService.update(id, studentRequestDTO.userRequestDTO());

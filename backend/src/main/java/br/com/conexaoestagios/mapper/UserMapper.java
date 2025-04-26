@@ -9,6 +9,7 @@ import br.com.conexaoestagios.enums.Role;
 public class UserMapper {
 
     public static UserResponseDTO toDto(User user) {
+        if (user == null) return null;
 
         return new UserResponseDTO(
                 user.getId(),
@@ -24,7 +25,7 @@ public class UserMapper {
     }
 
     public static User toEntity(UserRequestDTO userRequestDTO, Role role) {
-
+        if (userRequestDTO == null) return null;
         User user = new User();
 
         user.setName(userRequestDTO.name());

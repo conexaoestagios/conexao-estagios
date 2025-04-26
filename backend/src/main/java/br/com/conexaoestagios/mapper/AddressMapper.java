@@ -7,6 +7,7 @@ import br.com.conexaoestagios.entities.Address;
 public class AddressMapper {
 
     public static AddressResponseDTO toDto(Address address) {
+        if (address == null) return null;
 
         return new AddressResponseDTO(
                 address.getZipCode(),
@@ -21,6 +22,8 @@ public class AddressMapper {
     }
 
     public static Address toEntity(AddressRequestDTO addressRequestDTO) {
+        if (addressRequestDTO == null) return null;
+
         Address address = new Address();
 
         address.setZipCode(addressRequestDTO.zipcode());

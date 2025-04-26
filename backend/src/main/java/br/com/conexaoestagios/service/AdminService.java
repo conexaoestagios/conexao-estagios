@@ -10,12 +10,10 @@ import br.com.conexaoestagios.mapper.AdminMapper;
 import br.com.conexaoestagios.repository.AdminRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class AdminService {
@@ -23,9 +21,7 @@ public class AdminService {
     private final UserService userService;
 
     public AdminResponseDTO create(@Valid AdminRequestDTO adminRequestDTO) {
-
         User user = userService.create(adminRequestDTO.userRequestDTO(), Role.ADMIN);
-
         return AdminMapper.toDto(adminRepository.save(AdminMapper.toEntity(adminRequestDTO, user)));
     }
 

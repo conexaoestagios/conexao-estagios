@@ -18,6 +18,7 @@ public class CompanyMapper {
     }
 
     public static Company toEntity(CompanyRequestDTO companyRequestDTO, User user) {
+
         Company company = new Company();
 
         company.setUser(user);

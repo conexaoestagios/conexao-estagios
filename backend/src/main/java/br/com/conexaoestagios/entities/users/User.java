@@ -54,7 +54,6 @@ public class User implements Serializable {
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
     private LocalDateTime registrationDate = LocalDateTime.now();
 
-    //TODO criar método para setar conforme a entidade
     @Column(nullable = false, name = "role")
     private Role role;
 

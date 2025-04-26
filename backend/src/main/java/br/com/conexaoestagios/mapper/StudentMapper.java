@@ -26,6 +26,7 @@ public class StudentMapper {
         student.setCpf(studentRequestDTO.cpf());
         student.setCourse(studentRequestDTO.course());
         student.setInstitution(studentRequestDTO.institution());
+        student.setAreaOfInterest(studentRequestDTO.areaOfInterest());
         student.setSkills(studentRequestDTO.skills());
 
         return student;

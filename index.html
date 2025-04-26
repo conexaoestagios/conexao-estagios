@@ -29,6 +29,7 @@
       font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
       color: var(--dark);
       line-height: 1.6;
+      scroll-behavior: smooth;
     }
     
     header {
@@ -41,13 +42,16 @@
       align-items: center;
       background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: 1000;
       transition: var(--transition);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     
     header.scrolled {
       background: rgba(67, 97, 238, 0.9);
       padding: 1rem 2.5rem;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     }
     
     header h1 {
@@ -57,6 +61,7 @@
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
+      transition: var(--transition);
     }
     
     nav {
@@ -69,17 +74,23 @@
       text-decoration: none;
       font-weight: 600;
       position: relative;
+      padding: 0.5rem 0;
+      transition: var(--transition);
     }
     
     nav a::after {
       content: '';
       position: absolute;
-      bottom: -5px;
+      bottom: 0;
       left: 0;
       width: 0;
       height: 2px;
       background: var(--accent);
       transition: var(--transition);
+    }
+    
+    nav a:hover {
+      color: var(--accent);
     }
     
     nav a:hover::after {
@@ -96,29 +107,80 @@
       text-align: center;
       padding: 0 2rem;
       color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+      z-index: 0;
+      animation: rotate 15s linear infinite;
+    }
+    
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 800px;
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeInUp 0.8s 0.3s forwards;
+    }
+    
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
     }
     
     .hero h2 {
-      font-size: 3rem;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
       margin-bottom: 1.5rem;
+      line-height: 1.2;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.2);
     }
     
     .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 2rem;
-      max-width: 600px;
+      font-size: clamp(1rem, 2vw, 1.5rem);
+      margin-bottom: 2.5rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
     
     .cta {
       background: linear-gradient(45deg, var(--primary), var(--secondary));
       color: white;
       padding: 1rem 2.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
       border: none;
       border-radius: 50px;
-      font-weight: 600;
       cursor: pointer;
       transition: var(--transition);
       box-shadow: 0 4px 15px rgba(67, 97, 238, 0.4);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .cta::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: 0.5s;
+      z-index: -1;
     }
     
     .cta:hover {
@@ -126,7 +188,29 @@
       box-shadow: 0 8px 25px rgba(67, 97, 238, 0.6);
     }
     
-    /* Botão do WhatsApp */
+    .cta:hover::before {
+      left: 100%;
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      color: white;
+      font-size: 2rem;
+      animation: bounce 2s infinite;
+      cursor: pointer;
+      z-index: 1;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+      40% { transform: translateY(-20px) translateX(-50%); }
+      60% { transform: translateY(-10px) translateX(-50%); }
+    }
+    
+    /* Botão do WhatsApp melhorado */
     .whatsapp-float {
       position: fixed;
       bottom: 30px;
@@ -143,10 +227,39 @@
       box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
       z-index: 100;
       transition: var(--transition);
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
     }
     
     .whatsapp-float:hover {
-      transform: scale(1.1);
+      transform: scale(1.1) rotate(10deg);
+    }
+    
+    .whatsapp-tooltip {
+      position: absolute;
+      right: 70px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: white;
+      color: var(--dark);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    
+    .whatsapp-float:hover .whatsapp-tooltip {
+      opacity: 1;
     }
     
     footer {
@@ -169,6 +282,17 @@
       .hero h2 {
         font-size: 2rem;
       }
+      
+      .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 20px;
+        right: 20px;
+      }
+      
+      .whatsapp-tooltip {
+        display: none;
+      }
     }
   </style>
 </head>
@@ -184,22 +308,26 @@
   </header>
 
   <section class="hero">
-    <h2>Conquiste o estágio dos seus sonhos</h2>
-    <p>Junte-se a milhares de estudantes que transformaram suas carreiras com a Conexão Estágios.</p>
-    <button class="cta" onclick="window.location.href='https://forms.gle/seulinkdecadastro'">Quero me cadastrar</button>
+    <div class="hero-content">
+      <h2>Conquiste o estágio dos seus sonhos</h2>
+      <p>Junte-se a milhares de estudantes que transformaram suas carreiras com a Conexão Estágios.</p>
+      <button class="cta" onclick="window.location.href='https://forms.gle/seulinkdecadastro'">Quero me cadastrar</button>
+    </div>
+    <div class="scroll-indicator" onclick="document.querySelector('footer').scrollIntoView({ behavior: 'smooth' })">⌄</div>
   </section>
 
   <footer>
     <p>&copy; 2025 Conexão Estágios. Todos os direitos reservados.</p>
   </footer>
 
-  <!-- Botão do WhatsApp -->
-  <a href="https://wa.me/5583981679282" class="whatsapp-float" target="_blank">
+  <!-- Botão do WhatsApp com tooltip -->
+  <a href="https://wa.me/5583981679282" class="whatsapp-float" target="_blank" aria-label="WhatsApp">
     <i class="icon ion-logo-whatsapp"></i>
+    <span class="whatsapp-tooltip">Tire suas dúvidas</span>
   </a>
 
   <script>
-    // Efeito no header ao rolar
+    // Header scroll effect
     window.addEventListener('scroll', function() {
       const header = document.getElementById('main-header');
       if (window.scrollY > 50) {
@@ -208,6 +336,14 @@
         header.classList.remove('scrolled');
       }
     });
+    
+    // Load fonts after page load
+    window.onload = function() {
+      const fontLink = document.createElement('link');
+      fontLink.href = 'https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap';
+      fontLink.rel = 'stylesheet';
+      document.head.appendChild(fontLink);
+    };
   </script>
 </body>
 </html>

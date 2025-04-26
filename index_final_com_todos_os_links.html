@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Conexão Estágios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+    body, html {
+      height: 100%;
+      color: #fff;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      z-index: 999;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: white;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+    nav a:hover {
+      color: #00d1b2;
+    }
+    .hero {
+      background: url('background8.jpg') no-repeat center center/cover;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .hero h2 {
+      font-size: 3rem;
+      max-width: 800px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin: 20px 0;
+      max-width: 600px;
+    }
+    .cta {
+      background: #00d1b2;
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .cta:hover {
+      background: #00b89c;
+    }
+    footer {
+      background: #111;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Conexão Estágios</h1>
+    <nav>
+      <a href="#sobre">Sobre</a>
+      <a href="#cadastro">Cadastre-se</a>
+      <a href="cadastro-empresa.html">Cadastro de Empresas</a>
+      <a href="cadastro-estudantes.html">Cadastro de Estudantes</a>
+      <a href="duvidas-sugestoes.html">Dúvidas e Sugestões</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Conquiste o estágio dos seus sonhos</h2>
+    <p>Junte-se a milhares de estudantes que transformaram suas carreiras com a Conexão Estágios.</p>
+    <button class="cta" onclick="window.location.href='https://forms.gle/seulinkdecadastro'">Quero me cadastrar</button>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Conexão Estágios. Todos os direitos reservados.</p>
+  </footer>
+</body>
+</html>
+

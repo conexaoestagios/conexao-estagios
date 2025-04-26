@@ -2,7 +2,6 @@ package br.com.conexaoestagios.controller;
 
 import br.com.conexaoestagios.dto.student.StudentRequestDTO;
 import br.com.conexaoestagios.dto.student.StudentResponseDTO;
-import br.com.conexaoestagios.dto.student.StudentUpdateDTO;
 import br.com.conexaoestagios.service.StudentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

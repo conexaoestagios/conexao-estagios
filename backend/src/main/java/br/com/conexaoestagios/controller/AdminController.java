@@ -37,7 +37,7 @@ public class AdminController {
     }
 
     @GetMapping("/{id}")
-    @Operation(summary = "Buscar Administradore", description = "Retorna um administrador pelo ID fornecido.")
+    @Operation(summary = "Buscar Administrador Pelo Id", description = "Retorna um administrador pelo ID fornecido.")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         AuthController.validateAccess(id);
         return ResponseEntity.ok(adminService.findById(id));

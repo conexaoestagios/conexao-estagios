@@ -25,7 +25,6 @@ public class JwtService {
         Instant now = Instant.now();
         long expiry = 7200; //2h
 
-        //TODO: verify if it is used
         String scopes = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(" "));

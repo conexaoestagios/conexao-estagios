@@ -6,17 +6,20 @@ import br.com.conexaoestagios.entities.Student;
 import br.com.conexaoestagios.entities.users.User;
 import br.com.conexaoestagios.enums.Role;
 import br.com.conexaoestagios.exceptions.NoUserException;
+import br.com.conexaoestagios.exceptions.UniqueFieldViolationException;
+import br.com.conexaoestagios.mapper.CompanyMapper;
 import br.com.conexaoestagios.mapper.StudentMapper;
 import br.com.conexaoestagios.repository.StudentRepository;
-import jakarta.validation.Valid;
+import br.com.conexaoestagios.validation.OnCreate;
+import br.com.conexaoestagios.validation.OnUpdate;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class StudentService {
@@ -24,9 +27,8 @@ public class StudentService {
     private final PasswordEncoder passwordEncoder;
     private final UserService userService;
 
-    public StudentResponseDTO create(@Valid StudentRequestDTO studentRequestDTO) {
+    public StudentResponseDTO create(@Validated(OnCreate.class) StudentRequestDTO studentRequestDTO) {
         User user = userService.create(studentRequestDTO.userRequestDTO(), Role.ESTUDANTE);
-        //   validateUniqueFieldsBeforeCreate(studentRequestDTO);
 
         Student student = studentRepository.save(StudentMapper.toEntity(studentRequestDTO, user));
         user.setId(student.getId());
@@ -43,19 +45,18 @@ public class StudentService {
         return StudentMapper.toDto(student);
     }
 
-    public StudentResponseDTO update(Long id, StudentRequestDTO studentRequestDTO) {
-        // validateUniqueFieldsBeforeUpdate(id, studentRequestDTO);
+    public StudentResponseDTO update(Long id, @Validated(OnUpdate.class) StudentRequestDTO studentRequestDTO) {
         Student student = studentRepository.findById(id).orElseThrow(() -> new NoUserException("estudante", id));
 
-        if (studentRequestDTO.userRequestDTO() != null) userService.update(id, studentRequestDTO.userRequestDTO());
+        try {
+            if (studentRequestDTO.userRequestDTO() != null) userService.update(id, studentRequestDTO.userRequestDTO());
+            StudentMapper.applyChanges(studentRequestDTO, student);
 
-        if (studentRequestDTO.cpf() != null) student.setCpf(studentRequestDTO.cpf());
-        if (studentRequestDTO.course() != null) student.setCourse(studentRequestDTO.course());
-        if (studentRequestDTO.institution() != null) student.setInstitution(studentRequestDTO.institution());
-        if (studentRequestDTO.skills() != null) student.setSkills(studentRequestDTO.skills());
-        if (studentRequestDTO.areaOfInterest() != null) student.setAreaOfInterest(studentRequestDTO.areaOfInterest());
-
-        return StudentMapper.toDto(studentRepository.save(student));
+            return StudentMapper.toDto(studentRepository.save(student));
+        } catch (
+                DataIntegrityViolationException e) {
+            throw new UniqueFieldViolationException(e);
+        }
     }
 
     public void delete(Long id) {

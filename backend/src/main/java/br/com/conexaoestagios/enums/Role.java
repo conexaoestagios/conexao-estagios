@@ -1,7 +1,9 @@
 package br.com.conexaoestagios.enums;
 
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 
+@Getter
 public enum Role implements GrantedAuthority {
 
     ADMIN("administradores do projeto"),
@@ -12,10 +14,6 @@ public enum Role implements GrantedAuthority {
 
     Role(String description) {
         this.description = description;
-    }
-
-    public String getDescription() {
-        return description;
     }
 
     @Override

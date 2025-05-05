@@ -26,9 +26,18 @@ public class StudentMapper {
         student.setCpf(studentRequestDTO.cpf());
         student.setCourse(studentRequestDTO.course());
         student.setInstitution(studentRequestDTO.institution());
+        student.setAreaOfInterest(studentRequestDTO.areaOfInterest());
         student.setSkills(studentRequestDTO.skills());
 
         return student;
     }
 
+    public static void applyChanges(StudentRequestDTO studentRequestDTO, Student student) {
+
+        if (studentRequestDTO.cpf() != null) student.setCpf(studentRequestDTO.cpf());
+        if (studentRequestDTO.course() != null) student.setCourse(studentRequestDTO.course());
+        if (studentRequestDTO.institution() != null) student.setInstitution(studentRequestDTO.institution());
+        if (studentRequestDTO.skills() != null) student.setSkills(studentRequestDTO.skills());
+        if (studentRequestDTO.areaOfInterest() != null) student.setAreaOfInterest(studentRequestDTO.areaOfInterest());
+    }
 }

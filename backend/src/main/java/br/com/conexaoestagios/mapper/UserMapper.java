@@ -9,6 +9,7 @@ import br.com.conexaoestagios.enums.Role;
 public class UserMapper {
 
     public static UserResponseDTO toDto(User user) {
+        if (user == null) return null;
 
         return new UserResponseDTO(
                 user.getId(),
@@ -24,7 +25,7 @@ public class UserMapper {
     }
 
     public static User toEntity(UserRequestDTO userRequestDTO, Role role) {
-
+        if (userRequestDTO == null) return null;
         User user = new User();
 
         user.setName(userRequestDTO.name());
@@ -38,4 +39,14 @@ public class UserMapper {
         return user;
     }
 
+    public static void applyChanges(UserRequestDTO userRequestDTO, User user) {
+        if (userRequestDTO.name() != null) user.setName(userRequestDTO.name());
+        if (userRequestDTO.username() != null) user.setUsername(userRequestDTO.username());
+        if (userRequestDTO.linkedin() != null) user.setLinkedin(userRequestDTO.linkedin());
+        if (userRequestDTO.email() != null) user.setEmail(userRequestDTO.email());
+        if (userRequestDTO.phoneNumber() != null) user.setPhoneNumber(userRequestDTO.phoneNumber());
+        if (userRequestDTO.addressRequestDTO() != null)
+            user.setAddress(AddressMapper.toEntity(userRequestDTO.addressRequestDTO()));
+
+    }
 }

@@ -28,12 +28,10 @@ public class User implements Serializable {
 
     //nome real (nome fantasia, se for empresa)
     @Column(nullable = false, name = "nome")
-    @NotBlank
     private String name;
 
     //nome de usuário (usado no login)
     @Column(nullable = false, name = "nome_de_usuario", unique = true)
-    @NotBlank
     private String username;
 
     @Column(name = "linkedin", unique = true)
@@ -52,7 +50,7 @@ public class User implements Serializable {
 
     @Column(nullable = false, name = "data_registro")
     @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", shape = JsonFormat.Shape.STRING)
-    private LocalDateTime registrationDate = LocalDateTime.now();
+    private LocalDateTime registrationDate;
 
     @Column(nullable = false, name = "role")
     private Role role;
@@ -60,5 +58,10 @@ public class User implements Serializable {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_id")
     private Address address;
+
+    @PrePersist
+    public void prePersist() {
+        registrationDate = LocalDateTime.now();
+    }
 
 }

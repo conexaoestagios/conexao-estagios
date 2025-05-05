@@ -8,9 +8,11 @@ import br.com.conexaoestagios.enums.Role;
 import br.com.conexaoestagios.exceptions.NoUserException;
 import br.com.conexaoestagios.mapper.AdminMapper;
 import br.com.conexaoestagios.repository.AdminRepository;
-import jakarta.validation.Valid;
+import br.com.conexaoestagios.validation.OnCreate;
+import br.com.conexaoestagios.validation.OnUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -20,7 +22,7 @@ public class AdminService {
     private final AdminRepository adminRepository;
     private final UserService userService;
 
-    public AdminResponseDTO create(@Valid AdminRequestDTO adminRequestDTO) {
+    public AdminResponseDTO create(@Validated(OnCreate.class) AdminRequestDTO adminRequestDTO) {
         User user = userService.create(adminRequestDTO.userRequestDTO(), Role.ADMIN);
         return AdminMapper.toDto(adminRepository.save(AdminMapper.toEntity(adminRequestDTO, user)));
     }
@@ -34,7 +36,7 @@ public class AdminService {
         return AdminMapper.toDto(admin);
     }
 
-    public AdminResponseDTO update(Long id, AdminRequestDTO adminRequestDTO) {
+    public AdminResponseDTO update(Long id, @Validated(OnUpdate.class) AdminRequestDTO adminRequestDTO) {
         Admin admin = adminRepository.findById(id).orElseThrow(() -> new NoUserException("admin", id));
         if (admin != null) {
             User updatedUser = userService.update(admin.getUser().getId(), adminRequestDTO.userRequestDTO());

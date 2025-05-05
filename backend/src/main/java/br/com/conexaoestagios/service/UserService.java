@@ -6,13 +6,15 @@ import br.com.conexaoestagios.entities.users.User;
 import br.com.conexaoestagios.enums.Role;
 import br.com.conexaoestagios.exceptions.NoUserException;
 import br.com.conexaoestagios.exceptions.UniqueFieldViolationException;
-import br.com.conexaoestagios.mapper.AddressMapper;
 import br.com.conexaoestagios.mapper.UserMapper;
 import br.com.conexaoestagios.repository.UserRepository;
+import br.com.conexaoestagios.validation.OnCreate;
+import br.com.conexaoestagios.validation.OnUpdate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
-    public User create(UserRequestDTO userRequestDTO, Role role) {
+    public User create(@Validated(OnCreate.class) UserRequestDTO userRequestDTO, Role role) {
         try {
             User user = UserMapper.toEntity(userRequestDTO, role);
             user.setPassword(passwordEncoder.encode(userRequestDTO.password()));
@@ -41,19 +43,14 @@ public class UserService {
         return UserMapper.toDto(user);
     }
 
-    //TODO implementar validador de campo já existente
-    public User update(Long id, UserRequestDTO userRequestDTO) {
+    public User update(Long id, @Validated(OnUpdate.class) UserRequestDTO userRequestDTO) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new NoUserException("usuário", id));
         try {
-            if (userRequestDTO.name() != null) user.setName(userRequestDTO.name());
-            if (userRequestDTO.username() != null) user.setUsername(userRequestDTO.username());
-            if (userRequestDTO.linkedin() != null) user.setLinkedin(userRequestDTO.linkedin());
-            if (userRequestDTO.email() != null) user.setEmail(userRequestDTO.email());
-            if (userRequestDTO.phoneNumber() != null) user.setPhoneNumber(userRequestDTO.phoneNumber());
-            if (userRequestDTO.addressRequestDTO() != null)
-                user.setAddress(AddressMapper.toEntity(userRequestDTO.addressRequestDTO()));
-
+            UserMapper.applyChanges(userRequestDTO, user);
+            if (userRequestDTO.password() != null) {
+                user.setPassword(passwordEncoder.encode(userRequestDTO.password()));
+            }
             return userRepository.save(user);
         } catch (DataIntegrityViolationException e) {
             throw new UniqueFieldViolationException(e);
